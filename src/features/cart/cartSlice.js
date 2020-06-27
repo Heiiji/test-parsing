@@ -7,7 +7,7 @@ export const cartSlice = createSlice({
   },
   reducers: {
     addOne: (state, action) => {
-        state.value += action.payload;
+        state.value.push(action.payload);
     },
     removeOne: (state, action) => {
       state.value = state.value.filter(elem => elem.id !== action.payload);

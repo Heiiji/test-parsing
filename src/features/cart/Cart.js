@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeOne } from "../cart/cartSlice";
 
-const CartDiv = styled.div`
+const CartIconDiv = styled.div`
 position: fixed;
 top: 0;
 right: 0;
@@ -15,9 +17,35 @@ border-radius: 0 0 0 10px;
     }
 `;
 
-export function Cart() {
+const CartDiv = styled.div`
+    position: fixed;
+    top: 0;
+    right: ${props => props.display ? 0 : "-300px"};
+    width: 300px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 0 0 2px grey;
+`;
 
-    return <CartDiv>
+export function CartIcon() {
+
+    return <CartIconDiv>
         <img alt="cart" src="/media/cart.svg" />
+        <Cart></Cart>
+    </CartIconDiv>
+}
+
+export function Cart() {
+    const dispatch = useDispatch();
+    const carts = useSelector((state) => state.cart);
+
+    return <CartDiv display={1}>
+        <h4>Your cart</h4>
+        <hr></hr>
+        {
+            carts.value.map(elem => <div onClick={() => dispatch(removeOne(elem.id))} key={elem.id}>
+                {elem.title}
+            </div>)
+        }
     </CartDiv>
 }
