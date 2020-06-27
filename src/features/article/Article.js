@@ -2,11 +2,31 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setList } from "./articlesSlice";
 import api from "../../app/api";
+import styled from 'styled-components'
 
 export function Article({ id }) {
     const article = useSelector((state) => state.articles.list.find(elem => elem.id === id));
+
+    const ArticleDiv = styled.div`
+        display: inline-block;
+        box-shadow: 0px 0px 3px gray;
+        width: 200px;
+        height: 300px;
+        overflow: hidden;
+        margin: 5px;
+        padding: 10px;
+        cursor: pointer;
+        #illustration {
+            display: block;
+            height: 200px;
+            background-image: url(${article.url});
+            background-size: cover
+        }
+    `
+
+
     return(
-    <div>{JSON.stringify(article)}</div>
+    <ArticleDiv><div id="illustration"></div><p>{article.title}</p></ArticleDiv>
     );
 }
 
