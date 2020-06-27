@@ -22,11 +22,18 @@ export function Article({ id }) {
             background-image: url(${article.url});
             background-size: cover
         }
+        #buy {
+            cursor: pointer;
+        }
     `
 
 
     return(
-    <ArticleDiv><div id="illustration"></div><p>{article.title}</p></ArticleDiv>
+    <ArticleDiv>
+        <div id="illustration"></div>
+        <p>{article.title}</p>
+        <button id="buy">+</button>
+    </ArticleDiv>
     );
 }
 
