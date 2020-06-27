@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeOne } from "../cart/cartSlice";
@@ -25,21 +25,39 @@ const CartDiv = styled.div`
     height: 100%;
     background-color: white;
     box-shadow: 0 0 2px grey;
+    z-index: 1;
+    cursor: default;
+    transition: 0.3s;
+`;
+
+const CartClose = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(50, 50, 50, 0.5);
+    cursor: default;
 `;
 
 export function CartIcon() {
+    const [open, setOpen] = useState(0);
 
-    return <CartIconDiv>
-        <img alt="cart" src="/media/cart.svg" />
-        <Cart></Cart>
-    </CartIconDiv>
+    return <>
+        <CartIconDiv onClick={() => setOpen(1)}>
+            <img alt="cart" src="/media/cart.svg" />
+        </CartIconDiv>
+        <Cart display={open}></Cart>
+        {open ? <CartClose onClick={() => setOpen(0)} ></CartClose> : ""}
+    </>
 }
 
-export function Cart() {
+export function Cart({ display }) {
     const dispatch = useDispatch();
     const carts = useSelector((state) => state.cart);
 
-    return <CartDiv display={1}>
+    return <>
+    <CartDiv display={display}>
         <h4>Your cart</h4>
         <hr></hr>
         {
@@ -48,4 +66,5 @@ export function Cart() {
             </div>)
         }
     </CartDiv>
+    </>
 }
