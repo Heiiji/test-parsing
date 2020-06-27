@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setList } from "./articlesSlice";
+import { addOne } from "../cart/cartSlice";
 import api from "../../app/api";
 import styled from 'styled-components'
 
@@ -8,7 +9,7 @@ const ArticleDiv = styled.div`
     display: inline-block;
     box-shadow: 0px 0px 3px gray;
     width: 200px;
-    height: 300px;
+    height: 320px;
     overflow: hidden;
     margin: 5px;
     padding: 10px;
@@ -25,11 +26,12 @@ const ArticleDiv = styled.div`
 `
 
 export function Article({ id }) {
+    const dispatch = useDispatch();
     const article = useSelector((state) => state.articles.list.find(elem => elem.id === id));
 
 
     return(
-    <ArticleDiv url={article.url}>
+    <ArticleDiv onClick={() => dispatch(addOne(article))} url={article.url}>
         <div id="illustration"></div>
         <p>{article.title}</p>
         <button id="buy">+</button>
