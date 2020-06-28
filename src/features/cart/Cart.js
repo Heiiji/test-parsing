@@ -42,7 +42,30 @@ const CartClose = styled.div`
 
 const CartElement = styled.div`
     display: block;
+    position: relative;
     padding: 10px;
+    .remove-overlay {
+        transition: 0.3s;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(100, 100, 100, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        img {
+            display: inline-block;
+        }
+    }
+    &:hover {
+        .remove-overlay {
+            opacity: 1;
+        }
+    }
 `;
 
 const NotifPing = styled.div`
@@ -90,6 +113,9 @@ export function Cart({ display }) {
         {
             carts.value.map(elem => <CartElement onClick={() => dispatch(removeOne(elem.id))} key={elem.id}>
                 {elem.title}
+                <div className="remove-overlay">
+                    <img alt="trash" src="/media/trash.png" width="20" />
+                </div>
             </CartElement>)
         }
     </CartDiv>
