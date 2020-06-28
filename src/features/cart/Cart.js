@@ -28,6 +28,7 @@ const CartDiv = styled.div`
     z-index: 1;
     cursor: default;
     transition: 0.3s;
+    overflow-y: auto;
 `;
 
 const CartClose = styled.div`
@@ -111,7 +112,7 @@ export function Cart({ display }) {
         <h4>Your cart</h4>
         <hr></hr>
         {
-            carts.value.map(elem => <CartElement onClick={() => dispatch(removeOne(elem.id))} key={elem.id}>
+            carts.value.map((elem, index) => <CartElement onClick={() => dispatch(removeOne(elem.id))} key={`${elem.id}${index}`}>
                 {elem.title}
                 <div className="remove-overlay">
                     <img alt="trash" src="/media/trash.png" width="20" />
