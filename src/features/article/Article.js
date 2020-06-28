@@ -39,13 +39,13 @@ export function Article({ id }) {
     );
 }
 
-export function ArticleList({ range }) {
+export function ArticleList({ range, page }) {
     const dispatch = useDispatch();
     const articles = useSelector((state) => state.articles);
     
     useEffect(() => {
-        if (!articles.list || (range[0] + range[1]) !== (articles.range[0] + articles.range[1])) {
-            api.get(`/photos?_page=${range[0]}&_limit=${range[1]}`).then(res => {
+        if (!articles.list) {
+            api.get(`/photos?_page=${articles.page}&_limit=${articles.range}`).then(res => {
                 dispatch(setList(res.data))
             })
         }

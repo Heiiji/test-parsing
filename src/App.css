@@ -39,6 +39,10 @@
   }
 }
 
+.btn {
+  margin: 10px;
+}
+
 @keyframes Pop {
   from {
     transform: scale(0)
