@@ -40,11 +40,38 @@ const CartClose = styled.div`
     cursor: default;
 `;
 
+const CartElement = styled.div`
+    display: block;
+    padding: 10px;
+`;
+
+const NotifPing = styled.div`
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    font-weight: bold;
+    animation: Pop 0.3s;
+`;
+
 export function CartIcon() {
     const [open, setOpen] = useState(0);
+    const carts = useSelector((state) => state.cart);
 
     return <>
         <CartIconDiv onClick={() => setOpen(1)}>
+            {
+                carts.value.length > 0 && <NotifPing>{ carts.value.length }</NotifPing>
+            }
             <img alt="cart" src="/media/cart.svg" />
         </CartIconDiv>
         <Cart display={open}></Cart>
@@ -61,9 +88,9 @@ export function Cart({ display }) {
         <h4>Your cart</h4>
         <hr></hr>
         {
-            carts.value.map(elem => <div onClick={() => dispatch(removeOne(elem.id))} key={elem.id}>
+            carts.value.map(elem => <CartElement onClick={() => dispatch(removeOne(elem.id))} key={elem.id}>
                 {elem.title}
-            </div>)
+            </CartElement>)
         }
     </CartDiv>
     </>
